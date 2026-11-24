@@ -5,7 +5,7 @@
 A starting point for Neovim that is:
 
 * Small
-* Single-file
+* Modular
 * Completely Documented
 
 **NOT** a Neovim distribution, but instead a starting point for your configuration.
@@ -35,7 +35,7 @@ External Requirements:
 - [tree-sitter CLI](https://github.com/tree-sitter/tree-sitter/blob/master/crates/cli/README.md#installation)
 - Clipboard tool (xclip/xsel/win32yank or other depending on the platform)
 - A [Nerd Font](https://www.nerdfonts.com/): optional, provides various icons
-  - if you have it set `vim.g.have_nerd_font` in `init.lua` to true
+  - if you have it set `vim.g.have_nerd_font` in `lua/options.lua` to true
 - Emoji fonts (Ubuntu only, and only if you want emoji!) `sudo apt install fonts-noto-color-emoji`
 - Language Setup:
   - If you want to write Typescript, you need `npm`
@@ -125,11 +125,25 @@ That's it! `vim.pack` will install all the plugins from your config. Use
 `:lua vim.pack.update()` to fetch updates (`:write` applies updates, `:quit`
 cancels them).
 
+Mason installs the Ty, rust-analyzer, bqls (BigQuery), vtsls, and Lua language
+servers, as well as Stylua, Ruff, Prettier, SQLFluff, SQL Formatter, and
+markdownlint. Mason's Python and npm packages require Python/pip and Node.js/npm.
+Rust formatting uses `rustfmt` from the Rust toolchain.
+
+`<leader>f` formats the current buffer or selection. Lua and Python also
+format on save. SQLFluff is used when the project has its configuration;
+otherwise SQL Formatter is used. Set the SQL dialect in `.sqlfluff` or
+`.sql-formatter.json` (for BigQuery, use `bigquery`). bqls provides BigQuery
+features; accessing BigQuery metadata requires Google Cloud application-default
+credentials and a configured project.
+
+Trouble is available at `<leader>xx` and `<leader>xX`, Git diff/history at
+`<leader>gd` and `<leader>gh`, and Vim practice through `:VimBeGood`.
+
 #### Read The Friendly Documentation
 
-Read through the `init.lua` file in your configuration folder for more
-information about extending and exploring Neovim. That also includes
-examples of adding popularly requested plugins.
+Read through `init.lua` and `lua/config/pack.lua` in your configuration folder
+for information about extending and exploring the plugin setup.
 
 > [!NOTE]
 > For more information about a particular plugin check its repository's documentation.
